@@ -41,7 +41,7 @@ CREATE TABLE Funcionario {
     CONSTRAINT funcionario_pkey PRIMARY KEY (cpf_p),
     CONSTRAINT funcionario_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf),
 
-    CONSTRAINT funcionario_fkey2 FOREIGN KEY (cpf_s) REFERENCES Pessoa (cpf),
+    CONSTRAINT funcionario_fkey2 FOREIGN KEY (cpf_s) REFERENCES Funcionario (cpf_p),
     CONSTRAINT funcionario_fkey3 FOREIGN KEY (cnpj_f) REFERENCES Casa (cnpj),
     CONSTRAINT funcionario_fkey4 FOREIGN KEY (cargo) REFERENCES Emprego (cargo)
 }
@@ -88,7 +88,7 @@ CREATE TABLE Joga {
     datahora TIMESTAMP NOT NULL,
 
     CONSTRAINT joga_pkey PRIMARY KEY (cpf_p, nomejogo_f, datahora),
-    CONSTRAINT joga_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf),
+    CONSTRAINT joga_fkey FOREIGN KEY (cpf_p) REFERENCES Jogador (cpf_p),
     CONSTRAINT joga_fkey2 FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome)
 }
 
@@ -99,7 +99,19 @@ CREATE TABLE Organiza_joga {
     datahora_j TIMESTAMP NOT NULL,
 
     CONSTRAINT organizajoga_pkey PRIMARY KEY (cpf_p, nomejogo_f, datahora_j),
-    CONSTRAINT organizajoga_fkey FOREIGN KEY
-    CONSTRAINT organizajoga_fkey2
-    CONSTRAINT organizajoga_fkey3
+
+    CONSTRAINT organizajoga_fkey FOREIGN KEY (cpf_p) REFERENCES Jogador (cpf_p),
+    CONSTRAINT organizajoga_fkey2 FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome),
+    CONSTRAINT organizajoga_fkey3 FOREIGN KEY (datahora_j) REFERENCES Joga (datahora)
+}
+
+CREATE TABLE Contem {
+
+    cnpj_p VARCHAR2(14) NOT NULL,
+    nomejogo_f VARCHAR2(255) NOT NULL,
+
+    CONSTRAINT contem_pkey PRIMARY KEY (cnpj_p, nomejogo_f),
+
+    CONSTRAINT contem_fkey FOREIGN KEY (cnpj_p) REFERENCES Casa (cnpj),
+    CONSTRAINT contem_fkey2 FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome)
 }
