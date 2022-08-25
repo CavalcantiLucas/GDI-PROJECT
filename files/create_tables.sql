@@ -1,4 +1,4 @@
-CREATE TABLE Pessoa {
+CREATE TABLE Pessoa (
 
     cpf VARCHAR2(11) NOT NULL,
     nome VARCHAR2(255) NOT NULL,
@@ -12,26 +12,26 @@ CREATE TABLE Pessoa {
     CONSTRAINT pessoa_gender CHECK (genero = 'M' OR genero = 'F'),
     CONSTRAINT pessoa_fkey FOREIGN KEY (cep_f) REFERENCES Endereco (cep)
 
-}
+);
 
-CREATE TABLE Endereco {
+CREATE TABLE Endereco (
 
     cep VARCHAR2(8) NOT NULL,
     rua VARCHAR2(100),
     
     CONSTRAINT endereco_pkey PRIMARY KEY (cep)
-}
+);
 
-CREATE TABLE Jogador {
+CREATE TABLE Jogador (
 
     cpf_p VARCHAR2(11) NOT NULL, 
     carteira NUMBER, -- definir tipo de carteira
     
     CONSTRAINT jogador_pkey PRIMARY KEY (cpf_p),
     CONSTRAINT jogador_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf)
-}
+);
 
-CREATE TABLE Funcionario {
+CREATE TABLE Funcionario (
 
     cpf_p VARCHAR2(11) NOT NULL,
     cargo_f VARCHAR2(30) NOT NULL,
@@ -44,34 +44,34 @@ CREATE TABLE Funcionario {
     CONSTRAINT funcionario_fkey2 FOREIGN KEY (cpf_s) REFERENCES Funcionario (cpf_p),
     CONSTRAINT funcionario_fkey3 FOREIGN KEY (cnpj_f) REFERENCES Casa (cnpj),
     CONSTRAINT funcionario_fkey4 FOREIGN KEY (cargo) REFERENCES Emprego (cargo)
-}
+);
 
-CREATE TABLE Emprego {
+CREATE TABLE Emprego (
 
     cargo VARCHAR2(30) NOT NULL,
     salario NUMBER NOT NULL, -- definir salario base
 
     CONSTRAINT cargo_pkey PRIMARY KEY (cargo)
-}
+);
 
-CREATE TABLE Casa {
+CREATE TABLE Casa (
 
     cnpj VARCHAR2(14) NOT NULL,
     nome VARCHAR2(255) NOT NULL,
     saldo NUMBER, -- definir modelo de saldo
 
     CONSTRAINT casa_pkey PRIMARY KEY (cnpj)
-}
+);
 
-CREATE TABLE Jogo {
+CREATE TABLE Jogo (
 
     nome VARCHAR2(255) NOT NULL,
     custo NUMBER,
 
     CONSTRAINT jogo_pkey PRIMARY KEY (nome)
-}
+);
 
-CREATE TABLE Ficha_casa {
+CREATE TABLE Ficha_casa (
 
     cnpj_p VARCHAR2(14) NOT NULL,
     cor VARCHAR2(20) NOT NULL,
@@ -79,9 +79,9 @@ CREATE TABLE Ficha_casa {
 
     CONSTRAINT fichacasa_pkey PRIMARY KEY (cnpj_p, cor),
     CONSTRAINT fichacasa_fkey FOREIGN KEY (cnpj_p) REFERENCES Casa (cnpj)
-}
+);
 
-CREATE TABLE Joga {
+CREATE TABLE Joga (
 
     cpf_p VARCHAR2(11) NOT NULL,
     nomejogo_f VARCHAR2(255) NOT NULL,
@@ -90,9 +90,9 @@ CREATE TABLE Joga {
     CONSTRAINT joga_pkey PRIMARY KEY (cpf_p, nomejogo_f, datahora),
     CONSTRAINT joga_fkey FOREIGN KEY (cpf_p) REFERENCES Jogador (cpf_p),
     CONSTRAINT joga_fkey2 FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome)
-}
+);
 
-CREATE TABLE Organiza_joga {
+CREATE TABLE Organiza_joga (
 
     cpf_p VARCHAR2(11) NOT NULL,
     nomejogo_f VARCHAR2(255) NOT NULL,
@@ -103,9 +103,9 @@ CREATE TABLE Organiza_joga {
     CONSTRAINT organizajoga_fkey FOREIGN KEY (cpf_p) REFERENCES Jogador (cpf_p),
     CONSTRAINT organizajoga_fkey2 FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome),
     CONSTRAINT organizajoga_fkey3 FOREIGN KEY (datahora_j) REFERENCES Joga (datahora)
-}
+);
 
-CREATE TABLE Funcionario_jogo_hora {
+CREATE TABLE Funcionario_jogo_hora (
 
     nomejogo_f VARCHAR2(255) NOT NULL,
     datahora_j TIMESTAMP NOT NULL,
@@ -115,9 +115,9 @@ CREATE TABLE Funcionario_jogo_hora {
     CONSTRAINT funcjogohora_fkey FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome),
     CONSTRAINT funcjogohora_fkey2 FOREIGN KEY (datahora_j) REFERENCES Joga (datahora),
     CONSTRAINT funcjogohora_fkey3 FOREIGN KEY (cpf_p) REFERENCES Funcionario (cpf_p)
-}
+);
 
-CREATE TABLE Contem {
+CREATE TABLE Contem (
 
     cnpj_p VARCHAR2(14) NOT NULL,
     nomejogo_f VARCHAR2(255) NOT NULL,
@@ -126,18 +126,18 @@ CREATE TABLE Contem {
 
     CONSTRAINT contem_fkey FOREIGN KEY (cnpj_p) REFERENCES Casa (cnpj),
     CONSTRAINT contem_fkey2 FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome)
-}
+);
 
-CREATE TABLE Numero_telefone {
+CREATE TABLE Numero_telefone (
 
     cpf_p VARCHAR2(11) NOT NULL,
     telefone VARCHAR2(11) NOT NULL, -- modelo YY 9XXXX-XXXX
 
     CONSTRAINT telefone_pkey PRIMARY KEY (cpf_p, telefone),
     CONSTRAINT telefone_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf)
-}
+);
 
-CREATE TABLE Compra {
+CREATE TABLE Compra (
 
     cpf_p VARCHAR2(11) NOT NULL,
     cpf_f VARCHAR2(11) NOT NULL,
@@ -153,4 +153,4 @@ CREATE TABLE Compra {
     CONSTRAINT compra_fkey3 FOREIGN KEY (cor_f) REFERENCES Ficha_casa (cor),
     CONSTRAINT compra_fkey4 FOREIGN KEY (cnpj_f) REFERENCES Casa (cnpj)
 
-}
+);
