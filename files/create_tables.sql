@@ -91,3 +91,15 @@ CREATE TABLE Joga {
     CONSTRAINT joga_fkey FOREIGN KEY (cpf_p) REFERENCES Pessoa (cpf),
     CONSTRAINT joga_fkey2 FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome)
 }
+
+CREATE TABLE Organiza_joga {
+
+    cpf_p VARCHAR2(11) NOT NULL,
+    nomejogo_f VARCHAR2(255) NOT NULL,
+    datahora_j TIMESTAMP NOT NULL,
+
+    CONSTRAINT organizajoga_pkey PRIMARY KEY (cpf_p, nomejogo_f, datahora_j),
+    CONSTRAINT organizajoga_fkey FOREIGN KEY
+    CONSTRAINT organizajoga_fkey2
+    CONSTRAINT organizajoga_fkey3
+}
