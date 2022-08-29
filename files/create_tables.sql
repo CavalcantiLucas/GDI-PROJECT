@@ -92,32 +92,6 @@ CREATE TABLE Joga (
     CONSTRAINT joga_fkey2 FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome)
 );
 
-CREATE TABLE Organiza_joga (
-
-    cpf_j VARCHAR2(11) NOT NULL,
-    nomejogo_f VARCHAR2(255) NOT NULL,
-    datahora_j TIMESTAMP NOT NULL,
-
-    CONSTRAINT organizajoga_pkey PRIMARY KEY (cpf_j, nomejogo_f, datahora_j),
-
-    CONSTRAINT organizajoga_fkey FOREIGN KEY (cpf_j) REFERENCES Jogador (cpf_p),
-    CONSTRAINT organizajoga_fkey2 FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome),
-    CONSTRAINT organizajoga_fkey3 FOREIGN KEY (datahora_j) REFERENCES Joga (datahora)
-);
-
-CREATE TABLE Funcionario_jogo_hora (
-
-    nomejogo_f VARCHAR2(255) NOT NULL,
-    datahora_j TIMESTAMP NOT NULL,
-    cpf_j VARCHAR2(11) NOT NULL,
-
-    CONSTRAINT funcjogohora_pkey PRIMARY KEY (nomejogo_f, datahora_j),
-    
-    CONSTRAINT funcjogohora_fkey FOREIGN KEY (nomejogo_f) REFERENCES Jogo (nome),
-    CONSTRAINT funcjogohora_fkey2 FOREIGN KEY (datahora_j) REFERENCES Joga (datahora),
-    CONSTRAINT funcjogohora_fkey3 FOREIGN KEY (cpf_j) REFERENCES Funcionario (cpf_p)
-);
-
 CREATE TABLE Contem (
 
     cnpj_p VARCHAR2(14) NOT NULL,
@@ -146,13 +120,12 @@ CREATE TABLE Compra (
     cnpj_f VARCHAR2(14) NOT NULL,
     datahora TIMESTAMP NOT NULL,
 
-    valor_compra NUMBER, -- definir tipo melhor
+    valor_compra NUMBER,
 
-    CONSTRAINT compra_pkey PRIMARY KEY (cpf_j, cpf_f, cor_f, cnpj_f, datahora),
+    CONSTRAINT compra_pkey PRIMARY KEY (cpf_j, cpf_f, cnpj_f, cor_f, datahora),
 
     CONSTRAINT compra_fkey FOREIGN KEY (cpf_j) REFERENCES Jogador (cpf_p),
     CONSTRAINT compra_fkey2 FOREIGN KEY (cpf_f) REFERENCES Funcionario (cpf_p),
-    CONSTRAINT compra_fkey3 FOREIGN KEY (cor_f) REFERENCES Ficha_casa (cor),
-    CONSTRAINT compra_fkey4 FOREIGN KEY (cnpj_f) REFERENCES Casa (cnpj)
+    CONSTRAINT compra_fkey3 FOREIGN KEY (cnpj_f, cor_f) REFERENCES Ficha_casa (cnpj_p, cor)
 
 );
