@@ -10,14 +10,14 @@ CREATE TABLE Pessoa (
 
     cpf VARCHAR2(11) NOT NULL,
     nome VARCHAR2(255) NOT NULL,
-    genero VARCHAR2(1),
+    sexo VARCHAR2(1),
     idade NUMBER(2) NOT NULL,
     cep_endereco VARCHAR2(8) NOT NULL,
     complemento VARCHAR2(10),
     numero NUMBER(5),
 
     CONSTRAINT pessoa_pkey PRIMARY KEY (cpf),
-    CONSTRAINT pessoa_gender CHECK (genero = 'M' OR genero = 'F'),
+    CONSTRAINT pessoa_sex CHECK (sexo = 'M' OR sexo = 'F'),
     CONSTRAINT pessoa_fkey FOREIGN KEY (cep_endereco) REFERENCES Endereco (cep)
 
 );
