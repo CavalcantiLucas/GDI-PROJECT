@@ -103,7 +103,7 @@ CREATE TABLE Contem (
     CONSTRAINT contem_fkey2 FOREIGN KEY (nome_jogo) REFERENCES Jogo (nome)
 );
 
-CREATE TABLE Numero_telefone (
+CREATE TABLE Numero_Telefone (
 
     cpf_pessoa VARCHAR2(11) NOT NULL,
     telefone VARCHAR2(13) NOT NULL, -- modelo - (81)8888-8888
