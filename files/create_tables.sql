@@ -106,7 +106,7 @@ CREATE TABLE Contem (
 CREATE TABLE Numero_telefone (
 
     cpf_pessoa VARCHAR2(11) NOT NULL,
-    telefone VARCHAR2(11) NOT NULL, -- modelo YY9XXXXXXXX (YY == DDD exemplo - 81988888888)
+    telefone VARCHAR2(13) NOT NULL, -- modelo - (81)8888-8888
 
     CONSTRAINT telefone_pkey PRIMARY KEY (cpf_pessoa, telefone),
     CONSTRAINT telefone_fkey FOREIGN KEY (cpf_pessoa) REFERENCES Pessoa (cpf)

@@ -45,6 +45,21 @@ INSERT INTO Jogador(cpf_jogador, carteira)
 INSERT INTO Jogador(cpf_jogador, carteira)
     VALUES ('18956810818', 800);
 
+INSERT INTO Jogador(cpf_jogador, carteira)
+    VALUES ('06027847514', 1800);
+
+INSERT INTO Jogador(cpf_jogador, carteira)
+    VALUES ('85997072215', 400);
+
+INSERT INTO Jogador(cpf_jogador, carteira)
+    VALUES ('53885643715', 1200);
+
+INSERT INTO Jogador(cpf_jogador, carteira)
+    VALUES ('45836067376', 800);
+
+INSERT INTO Jogador(cpf_jogador, carteira)
+    VALUES ('61245137220', 8000);
+
 -- povoamento Endereço
 
 INSERT INTO Endereco(cep, rua)
@@ -136,3 +151,18 @@ INSERT INTO Endereco(cep, rua)
 
 INSERT INTO Endereco(cep, rua)
     VALUES ('94853810', 'Rua Alabama');
+
+INSERT INTO Endereco(cep, rua)
+    VALUES ('64853810', 'Rua Carvalho');
+
+INSERT INTO Endereco(cep, rua)
+    VALUES ('94853813', 'Rua Santos');
+
+INSERT INTO Endereco(cep, rua)
+    VALUES ('94803817', 'Rua Campo Largo');
+
+INSERT INTO Endereco(cep, rua)
+    VALUES ('94813811', 'Rua 30 de Março');
+
+INSERT INTO Endereco(cep, rua)
+    VALUES ('94353812', 'Rua Padre Carapuceiro');
