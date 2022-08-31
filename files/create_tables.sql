@@ -31,6 +31,15 @@ CREATE TABLE Jogador (
     CONSTRAINT jogador_fkey FOREIGN KEY (cpf_jogador) REFERENCES Pessoa (cpf)
 );
 
+CREATE TABLE Casa (
+
+    cnpj VARCHAR2(14) NOT NULL,
+    nome VARCHAR2(255) NOT NULL,
+    saldo NUMBER, -- definir modelo de saldo
+
+    CONSTRAINT casa_pkey PRIMARY KEY (cnpj)
+);
+
 CREATE TABLE Emprego (
 
     cargo VARCHAR2(30) NOT NULL,
@@ -40,15 +49,6 @@ CREATE TABLE Emprego (
     CONSTRAINT emprego_pkey PRIMARY KEY (cargo, cnpj_casa),
     CONSTRAINT emprego_fkey FOREIGN KEY (cnpj_casa) REFERENCES Casa (cnpj)
 
-);
-
-CREATE TABLE Casa (
-
-    cnpj VARCHAR2(14) NOT NULL,
-    nome VARCHAR2(255) NOT NULL,
-    saldo NUMBER, -- definir modelo de saldo
-
-    CONSTRAINT casa_pkey PRIMARY KEY (cnpj)
 );
 
 CREATE TABLE Funcionario (
@@ -63,7 +63,7 @@ CREATE TABLE Funcionario (
 
     CONSTRAINT funcionario_fkey2 FOREIGN KEY (cpf_supervisor) REFERENCES Funcionario (cpf_funcionario),
     CONSTRAINT funcionario_fkey3 FOREIGN KEY (cnpj_casa) REFERENCES Casa (cnpj),
-    CONSTRAINT funcionario_fkey4 FOREIGN KEY (cargo_funcionario) REFERENCES Emprego (cargo)
+    CONSTRAINT funcionario_fkey4 FOREIGN KEY (cargo_funcionario) REFERENCES Emprego (cargo, cnpj_casa)
 );
 
 CREATE TABLE Jogo (
