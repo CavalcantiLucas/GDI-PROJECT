@@ -34,9 +34,12 @@ CREATE TABLE Jogador (
 CREATE TABLE Emprego (
 
     cargo VARCHAR2(30) NOT NULL,
+    cnpj_casa VARCHAR2(14) NOT NULL,
     salario NUMBER NOT NULL, -- definir salario base
 
-    CONSTRAINT cargo_pkey PRIMARY KEY (cargo)
+    CONSTRAINT emprego_pkey PRIMARY KEY (cargo, cnpj_casa),
+    CONSTRAINT emprego_fkey FOREIGN KEY (cnpj_casa) REFERENCES Casa (cnpj)
+
 );
 
 CREATE TABLE Casa (
