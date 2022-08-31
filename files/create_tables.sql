@@ -68,6 +68,7 @@ CREATE TABLE Funcionario (
 
 CREATE TABLE Jogo (
 
+    id INTEGER NOT NULL,
     nome VARCHAR2(255) NOT NULL,
     custo NUMBER,
 
@@ -87,23 +88,23 @@ CREATE TABLE Ficha_casa (
 CREATE TABLE Joga (
 
     cpf_jogador VARCHAR2(11) NOT NULL,
-    nome_jogo VARCHAR2(255) NOT NULL,
+    jogo_id INTEGER NOT NULL,
     datahora TIMESTAMP NOT NULL,
 
-    CONSTRAINT joga_pkey PRIMARY KEY (cpf_jogador, nome_jogo, datahora),
+    CONSTRAINT joga_pkey PRIMARY KEY (cpf_jogador, jogo_id, datahora),
     CONSTRAINT joga_fkey FOREIGN KEY (cpf_jogador) REFERENCES Jogador (cpf_jogador),
-    CONSTRAINT joga_fkey2 FOREIGN KEY (nome_jogo) REFERENCES Jogo (nome)
+    CONSTRAINT joga_fkey2 FOREIGN KEY (jogo_id) REFERENCES Jogo (id)
 );
 
 CREATE TABLE Contem (
 
     cnpj_casa VARCHAR2(14) NOT NULL,
-    nome_jogo VARCHAR2(255) NOT NULL,
+    jogo_id VARCHAR2(255) NOT NULL,
 
-    CONSTRAINT contem_pkey PRIMARY KEY (cnpj_casa, nome_jogo),
+    CONSTRAINT contem_pkey PRIMARY KEY (cnpj_casa, jogo_id),
 
     CONSTRAINT contem_fkey FOREIGN KEY (cnpj_casa) REFERENCES Casa (cnpj),
-    CONSTRAINT contem_fkey2 FOREIGN KEY (nome_jogo) REFERENCES Jogo (nome)
+    CONSTRAINT contem_fkey2 FOREIGN KEY (jogo_id) REFERENCES Jogo (id)
 );
 
 CREATE TABLE Numero_Telefone (
