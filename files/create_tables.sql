@@ -72,7 +72,7 @@ CREATE TABLE Jogo (
     nome VARCHAR2(255) NOT NULL,
     custo NUMBER,
 
-    CONSTRAINT jogo_pkey PRIMARY KEY (nome)
+    CONSTRAINT jogo_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE Ficha_casa (
@@ -99,7 +99,7 @@ CREATE TABLE Joga (
 CREATE TABLE Contem (
 
     cnpj_casa VARCHAR2(14) NOT NULL,
-    jogo_id VARCHAR2(255) NOT NULL,
+    jogo_id INTEGER NOT NULL,
 
     CONSTRAINT contem_pkey PRIMARY KEY (cnpj_casa, jogo_id),
 
