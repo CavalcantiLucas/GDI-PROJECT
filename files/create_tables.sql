@@ -118,7 +118,7 @@ CREATE TABLE Numero_Telefone (
 CREATE TABLE Compra (
 
     cpf_jogador VARCHAR2(11) NOT NULL,
-    cpf_funcionario VARCHAR2(11) NOT NULL,
+    cpf_funcionario VARCHAR2(11),
     cor_ficha VARCHAR2(20) NOT NULL,
     cnpj_casa VARCHAR2(14) NOT NULL,
     datahora TIMESTAMP NOT NULL,
