@@ -46,7 +46,7 @@ INSERT INTO Pessoa(cpf, nome, sexo, idade, cep_endereco, complemento, numero)
     VALUES ('49869393004', 'Andreia Duboc', 'F', '46', '60831160', NULL, '777');
 
 INSERT INTO Pessoa(cpf, nome, sexo, idade, cep_endereco, complemento, numero)
-    VALUES ('55566621111', 'Aaatha Ottoni', 'F', '40', '85304390', NULL, '1023');
+    VALUES ('55566621111', 'Agatha Ottoni', 'F', '40', '85304390', NULL, '1023');
 
 INSERT INTO Pessoa(cpf, nome, sexo, idade, cep_endereco, complemento, numero)
     VALUES ('19321816283', 'Victor Matheus de Azevedo P.', 'M', '52', '58420430', 'Ap 602', '224');
