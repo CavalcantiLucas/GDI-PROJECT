@@ -61,7 +61,7 @@ CREATE TABLE Funcionario (
     CONSTRAINT funcionario_pkey PRIMARY KEY (cpf_funcionario),
     CONSTRAINT funcionario_fkey FOREIGN KEY (cpf_funcionario) REFERENCES Pessoa (cpf),
 
-    CONSTRAINT funcionario_fkey2 FOREIGN KEY (cpf_supervisor) REFERENCES Funcionario (cpf_funcionario),
+    CONSTRAINT funcionario_fkey2 FOREIGN KEY (cpf_supervisor) REFERENCES Pessoa (cpf),
     CONSTRAINT funcionario_fkey3 FOREIGN KEY (cnpj_casa) REFERENCES Casa (cnpj),
     CONSTRAINT funcionario_fkey4 FOREIGN KEY (cargo_funcionario, cnpj_casa) REFERENCES Emprego (cargo, cnpj_casa)
 );
