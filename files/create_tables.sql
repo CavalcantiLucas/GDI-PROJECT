@@ -61,9 +61,8 @@ CREATE TABLE Funcionario (
     CONSTRAINT funcionario_pkey PRIMARY KEY (cpf_funcionario),
     CONSTRAINT funcionario_fkey FOREIGN KEY (cpf_funcionario) REFERENCES Pessoa (cpf),
 
-    CONSTRAINT funcionario_fkey2 FOREIGN KEY (cpf_supervisor) REFERENCES Pessoa (cpf),
-    CONSTRAINT funcionario_fkey3 FOREIGN KEY (cnpj_casa) REFERENCES Casa (cnpj),
-    CONSTRAINT funcionario_fkey4 FOREIGN KEY (cargo_funcionario, cnpj_casa) REFERENCES Emprego (cargo, cnpj_casa)
+    CONSTRAINT funcionario_fkey2 FOREIGN KEY (cpf_supervisor) REFERENCES Funcionario (cpf_funcionario),
+    CONSTRAINT funcionario_fkey3 FOREIGN KEY (cargo_funcionario, cnpj_casa) REFERENCES Emprego (cargo, cnpj_casa)
 );
 
 CREATE TABLE Jogo (
@@ -90,10 +89,12 @@ CREATE TABLE Joga (
     cpf_jogador VARCHAR2(11) NOT NULL,
     jogo_id INTEGER NOT NULL,
     datahora TIMESTAMP NOT NULL,
+    cpf_funcionario VARCHAR2(11),
 
     CONSTRAINT joga_pkey PRIMARY KEY (cpf_jogador, jogo_id, datahora),
     CONSTRAINT joga_fkey FOREIGN KEY (cpf_jogador) REFERENCES Jogador (cpf_jogador),
-    CONSTRAINT joga_fkey2 FOREIGN KEY (jogo_id) REFERENCES Jogo (id)
+    CONSTRAINT joga_fkey2 FOREIGN KEY (jogo_id) REFERENCES Jogo (id),
+    CONSTRAINT joga_fkey3 FOREIGN KEY (cpf_funcionario) REFERENCES Funcionario(cpf_funcionario)
 );
 
 CREATE TABLE Contem (
@@ -122,11 +123,11 @@ CREATE TABLE Compra (
     cpf_funcionario VARCHAR2(11),
     cor_ficha VARCHAR2(20) NOT NULL,
     cnpj_casa VARCHAR2(14) NOT NULL,
-    compra_ID INTEGER NOT NULL,
+    datahora TIMESTAMP,
 
     valor_compra NUMBER,
 
-    CONSTRAINT compra_pkey PRIMARY KEY (cpf_jogador, cpf_funcionario, cnpj_casa, cor_ficha, compra_ID),
+    CONSTRAINT compra_pkey PRIMARY KEY (cpf_jogador, cpf_funcionario, cnpj_casa, cor_ficha, datahora),
 
     CONSTRAINT compra_fkey FOREIGN KEY (cpf_jogador) REFERENCES Jogador (cpf_jogador),
     CONSTRAINT compra_fkey2 FOREIGN KEY (cpf_funcionario) REFERENCES Funcionario (cpf_funcionario),

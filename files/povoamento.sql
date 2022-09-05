@@ -1,4 +1,4 @@
-
+--POVOAMENTO ENDEREÇO
 INSERT INTO Endereco(cep, rua)
     VALUES ('54505390', 'Rua Conde da Boa Vista');
 
@@ -106,7 +106,7 @@ INSERT INTO Endereco(cep, rua)
 
 
 
-
+--POVOAMENTO PESSOA
 INSERT INTO Pessoa(cpf, nome, sexo, idade, cep_endereco, complemento, numero)
     VALUES ('51871590035', 'João Pedro Barreto Panda', 'M', '42', '57071182', 'Ap 201', '280');
 
@@ -213,6 +213,8 @@ INSERT INTO Pessoa(cpf, nome, sexo, idade, cep_endereco, complemento, numero)
     VALUES ('61245137220', 'Juliete Freire Feitosa', 'F', '32', '94353812', NULL, '129');
 
 
+
+--POVOAMENTO JOGADOR
 INSERT INTO Jogador(cpf_jogador, carteira)
     VALUES ('55566621111', 300);
 
@@ -272,8 +274,9 @@ INSERT INTO Jogador(cpf_jogador, carteira)
 
 INSERT INTO Jogador(cpf_jogador, carteira)
     VALUES ('61245137220', 8000);
-    
 
+
+--POVOAMENTO CASA
 INSERT INTO Casa(cnpj, nome, saldo)
     VALUES ('40658419000150', 'El Frejo', 7850000);
 
@@ -284,6 +287,7 @@ INSERT INTO Casa(cnpj, nome, saldo)
     VALUES ('89619720000143', 'Tranquility Base Hotel & Casino', 8428223);
 
 
+--POVOAMENTO EMPREGO
 -- Casa 1
 INSERT INTO Emprego(cargo, cnpj_casa, salario)
     VALUES ('Dealer', '40658419000150', 4665);
@@ -316,6 +320,16 @@ INSERT INTO Emprego(cargo, cnpj_casa, salario)
 
 
 
+-- povoamento Funcionario
+
+-- Casa 1
+
+INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
+    VALUES ('95068505005', 'Supervisor', '40658419000150',  NULL);
+
+INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
+    VALUES ('42777797005', 'Supervisor', '40658419000150',  NULL);
+
 INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
     VALUES ('99942745033', 'Caixa', '40658419000150',  '42777797005');
 
@@ -325,13 +339,12 @@ INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_super
 INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
     VALUES ('95438868069', 'Dealer', '40658419000150',  '95068505005');
 
+
+-- Casa 2
+
+
 INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
-    VALUES ('95068505005', 'Supervisor', '40658419000150',  NULL);
-
-INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
-    VALUES ('42777797005', 'Supervisor', '40658419000150',  NULL);
-
-
+    VALUES ('16790533028', 'Supervisor', '07829772000180',  NULL);
 
 INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
     VALUES ('32798587042', 'Caixa', '07829772000180',  '16790533028');
@@ -345,10 +358,10 @@ INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_super
 INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
     VALUES ('29014744030', 'Dealer', '07829772000180',  '16790533028');
 
+-- Casa 3
+
 INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
-    VALUES ('16790533028', 'Supervisor', '07829772000180',  NULL);
-
-
+    VALUES ('49869393004', 'Supervisor', '89619720000143',  NULL);
 
 INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
     VALUES ('35170942001', 'Caixa', '89619720000143',  '49869393004');
@@ -362,11 +375,9 @@ INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_super
 INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
     VALUES ('96627054060', 'Dealer', '89619720000143',  '49869393004');
 
-INSERT INTO Funcionario(cpf_funcionario, cargo_funcionario, cnpj_casa, cpf_supervisor)
-    VALUES ('49869393004', 'Supervisor', '89619720000143',  NULL);
 
 
-
+--POVOAMENTO JOGO
 CREATE SEQUENCE jogo_id INCREMENT BY 1 START WITH 1;
 
 
@@ -395,7 +406,7 @@ INSERT INTO Jogo(id, nome, custo)
     VALUES (jogo_id.NEXTVAL, 'Baccarat', 80);
 
 
-
+--POVOAMENTO FICHA
 INSERT INTO Ficha_casa (cnpj_casa, cor, valor)
     VALUES('40658419000150','Branco', 1);
 
@@ -451,6 +462,7 @@ INSERT INTO Ficha_casa (cnpj_casa, cor, valor)
     VALUES('89619720000143','Branco',10000);
 
 
+--POVOAMENTO TELEFONE
 INSERT INTO Numero_Telefone(cpf_pessoa, telefone)
     VALUES ('51871590035', '(81)9874-5632');
 
@@ -572,164 +584,162 @@ INSERT INTO Numero_Telefone(cpf_pessoa, telefone)
     VALUES ('61245137220', '(35)3146-8727');
 
 
-
 --Povoamento da tabela compra
-CREATE SEQUENCE ID INCREMENT BY 1 START WITH 1;
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('55566621111', '99942745033', 'Branco', '40658419000150', to_date('2022-08-25 19:10:01','yyyy-mm-dd hh24:mi:ss'), 8);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('55566621111', '99942745033', 'Branco', '40658419000150', ID.NEXTVAL, 8);
-
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('55566621111', '99942745033', 'Amarelo', '40658419000150', ID.NEXTVAL, 600);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('55566621111', '99942745033', 'Amarelo', '40658419000150', to_date('2022-08-25 19:11:30','yyyy-mm-dd hh24:mi:ss'), 600);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('55566621111', '99942745033', 'Preto', '40658419000150', ID.NEXTVAL, 5000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('55566621111', '99942745033', 'Preto', '40658419000150', to_date('2022-08-25 19:12:50','yyyy-mm-dd hh24:mi:ss'), 5000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('19321816283', '99942745033', 'Vermelho', '40658419000150', ID.NEXTVAL, 5);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('19321816283', '99942745033', 'Vermelho', '40658419000150', to_date('2022-08-31 22:50:40','yyyy-mm-dd hh24:mi:ss'), 5);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('19321816283', '99942745033', 'Azul', '40658419000150', ID.NEXTVAL, 40);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('19321816283', '99942745033', 'Azul', '40658419000150', to_date('2022-08-31 22:55:00','yyyy-mm-dd hh24:mi:ss'), 40);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('19321816283', '99942745033', 'Verde', '40658419000150', ID.NEXTVAL, 50);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('19321816283', '99942745033', 'Verde', '40658419000150', to_date('2022-08-31 22:58:01','yyyy-mm-dd hh24:mi:ss'), 50);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('94044687544', '99942745033', 'Preto', '40658419000150', ID.NEXTVAL, 10000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('94044687544', '99942745033', 'Preto', '40658419000150', to_date('2022-08-10 20:10:01','yyyy-mm-dd hh24:mi:ss'), 10000);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('94044687544', '99942745033', 'Azul', '40658419000150', ID.NEXTVAL, 30);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('94044687544', '99942745033', 'Azul', '40658419000150', to_date('2022-08-10 20:30:01','yyyy-mm-dd hh24:mi:ss'), 30);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('94044687544', '99942745033', 'Amarelo', '40658419000150', ID.NEXTVAL, 800);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('94044687544', '99942745033', 'Amarelo', '40658419000150', to_date('2022-08-10 20:50:01','yyyy-mm-dd hh24:mi:ss'), 800);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('34864572097', '99942745033', 'Branco', '40658419000150', ID.NEXTVAL, 1);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('34864572097', '99942745033', 'Branco', '40658419000150', to_date('2022-08-20 22:30:01','yyyy-mm-dd hh24:mi:ss'), 1);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('34864572097', '99942745033', 'Preto', '40658419000150', ID.NEXTVAL, 7000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('34864572097', '99942745033', 'Preto', '40658419000150', to_date('2022-08-20 22:40:10','yyyy-mm-dd hh24:mi:ss'), 7000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('42824439602', '99942745033', 'Vermelho', '40658419000150', ID.NEXTVAL, 15);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('42824439602', '99942745033', 'Vermelho', '40658419000150', to_date('2022-08-27 19:30:01','yyyy-mm-dd hh24:mi:ss'), 15);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('42824439602', '99942745033', 'Verde', '40658419000150', ID.NEXTVAL, 300);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('42824439602', '99942745033', 'Verde', '40658419000150', to_date('2022-08-27 19:32:01','yyyy-mm-dd hh24:mi:ss'), 300);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('96382647217', '99942745033', 'Branco', '40658419000150', ID.NEXTVAL, 50);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('96382647217', '99942745033', 'Branco', '40658419000150', to_date('2022-08-30 21:00:01','yyyy-mm-dd hh24:mi:ss'), 50);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('96382647217', '99942745033', 'Preto', '40658419000150', ID.NEXTVAL, 1000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('96382647217', '99942745033', 'Preto', '40658419000150', to_date('2022-08-30 21:05:01','yyyy-mm-dd hh24:mi:ss'), 1000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('17932577527', '99942745033', 'Azul', '40658419000150', ID.NEXTVAL, 150);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('17932577527', '99942745033', 'Azul', '40658419000150', to_date('2022-08-15 23:40:01','yyyy-mm-dd hh24:mi:ss'), 150);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('17932577527', '99942745033', 'Vermelho', '40658419000150', ID.NEXTVAL, 150);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('17932577527', '99942745033', 'Vermelho', '40658419000150', to_date('2022-08-15 23:42:01','yyyy-mm-dd hh24:mi:ss'), 150);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('38612505780', '99942745033', 'Amarelo', '40658419000150', ID.NEXTVAL, 500);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('38612505780', '99942745033', 'Amarelo', '40658419000150', to_date('2022-08-01 20:10:01','yyyy-mm-dd hh24:mi:ss'), 500);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('38612505780', '99942745033', 'Preto', '40658419000150', ID.NEXTVAL, 50000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('38612505780', '99942745033', 'Preto', '40658419000150', to_date('2022-08-01 20:12:01','yyyy-mm-dd hh24:mi:ss'), 50000);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('93405446929', '99942745033', 'Verde', '40658419000150', ID.NEXTVAL, 1000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('93405446929', '99942745033', 'Verde', '40658419000150', to_date('2022-08-26 20:00:01','yyyy-mm-dd hh24:mi:ss'), 1000);
 
 
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('93405446929', '32798587042', 'Rosa', '07829772000180', ID.NEXTVAL, 50);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('93405446929', '32798587042', 'Rosa', '07829772000180', to_date('2022-08-26 23:12:01','yyyy-mm-dd hh24:mi:ss'), 50);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('26744842684', '32798587042', 'Vermelho', '07829772000180', ID.NEXTVAL, 500);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('26744842684', '32798587042', 'Vermelho', '07829772000180', to_date('2022-08-02 23:30:01','yyyy-mm-dd hh24:mi:ss'), 500);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('26744842684', '32798587042', 'Azul', '07829772000180', ID.NEXTVAL, 2000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('26744842684', '32798587042', 'Azul', '07829772000180', to_date('2022-08-02 23:32:01','yyyy-mm-dd hh24:mi:ss'), 2000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('77648271427', '32798587042', 'Preto', '07829772000180', ID.NEXTVAL, 4000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('77648271427', '32798587042', 'Preto', '07829772000180', to_date('2022-08-05 18:10:01','yyyy-mm-dd hh24:mi:ss'), 4000);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('77648271427', '32798587042', 'Verde', '07829772000180', ID.NEXTVAL, 50000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('77648271427', '32798587042', 'Verde', '07829772000180', to_date('2022-08-05 18:12:01','yyyy-mm-dd hh24:mi:ss'), 50000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('62538131103', '32798587042', 'Amarelo', '07829772000180', ID.NEXTVAL, 4);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('62538131103', '32798587042', 'Amarelo', '07829772000180', to_date('2022-08-09 20:38:01','yyyy-mm-dd hh24:mi:ss'), 4);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('62538131103', '32798587042', 'Rosa', '07829772000180', ID.NEXTVAL, 20);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('62538131103', '32798587042', 'Rosa', '07829772000180', to_date('2022-08-09 20:40:01','yyyy-mm-dd hh24:mi:ss'), 20);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('88634284255', '32798587042', 'Preto', '07829772000180', ID.NEXTVAL, 1000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('88634284255', '32798587042', 'Preto', '07829772000180', to_date('2022-08-11 19:50:01','yyyy-mm-dd hh24:mi:ss'), 1000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('88634284255', '61888835044', 'Amarelo', '07829772000180', ID.NEXTVAL, 20);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('88634284255', '61888835044', 'Amarelo', '07829772000180', to_date('2022-08-11 19:56:01','yyyy-mm-dd hh24:mi:ss'), 20);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('62982197499', '61888835044', 'Verde', '07829772000180', ID.NEXTVAL, 10000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('62982197499', '61888835044', 'Verde', '07829772000180', to_date('2022-08-08 20:29:01','yyyy-mm-dd hh24:mi:ss'), 10000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('62982197499', '61888835044', 'Azul', '07829772000180', ID.NEXTVAL, 1000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('62982197499', '61888835044', 'Azul', '07829772000180', to_date('2022-08-08 20:30:01','yyyy-mm-dd hh24:mi:ss'), 1000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('18956810818', '61888835044', 'Preto', '07829772000180', ID.NEXTVAL, 2000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('18956810818', '61888835044', 'Preto', '07829772000180', to_date('2022-08-31 23:39:01','yyyy-mm-dd hh24:mi:ss'), 2000);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('18956810818', '61888835044', 'Amarelo', '07829772000180', ID.NEXTVAL, 5);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('18956810818', '61888835044', 'Amarelo', '07829772000180', to_date('2022-08-31 23:40:01','yyyy-mm-dd hh24:mi:ss'), 5);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('06027847514', '61888835044', 'Rosa', '07829772000180', ID.NEXTVAL, 50);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('06027847514', '61888835044', 'Rosa', '07829772000180', to_date('2022-08-31 21:00:01','yyyy-mm-dd hh24:mi:ss'), 50);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('06027847514', '61888835044', 'Preto', '07829772000180', ID.NEXTVAL, 5000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('06027847514', '61888835044', 'Preto', '07829772000180', to_date('2022-08-31 21:05:01','yyyy-mm-dd hh24:mi:ss'), 5000);
 
 
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('85997072215', '35170942001', 'Branco', '89619720000143', ID.NEXTVAL, 100000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('85997072215', '35170942001', 'Branco', '89619720000143', to_date('2022-08-26 00:23:01','yyyy-mm-dd hh24:mi:ss'), 100000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('85997072215', '35170942001', 'Azul', '89619720000143', ID.NEXTVAL, 5000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('85997072215', '35170942001', 'Azul', '89619720000143', to_date('2022-08-26 00:25:01','yyyy-mm-dd hh24:mi:ss'), 5000);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('53885643715', '35170942001', 'Rosa', '89619720000143', ID.NEXTVAL, 20);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('53885643715', '35170942001', 'Rosa', '89619720000143', to_date('2022-08-27 20:15:01','yyyy-mm-dd hh24:mi:ss'), 20);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('53885643715', '35170942001', 'Vermelho', '89619720000143', ID.NEXTVAL, 400);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('53885643715', '35170942001', 'Vermelho', '89619720000143', to_date('2022-08-27 20:18:01','yyyy-mm-dd hh24:mi:ss'), 400);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('45836067376', '35170942001', 'Preto', '89619720000143', ID.NEXTVAL, 10);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('45836067376', '35170942001', 'Preto', '89619720000143', to_date('2022-08-20 18:28:01','yyyy-mm-dd hh24:mi:ss'), 10);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('45836067376', '35170942001', 'Amarelo', '89619720000143', ID.NEXTVAL, 1000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('45836067376', '35170942001', 'Amarelo', '89619720000143', to_date('2022-08-20 18:30:01','yyyy-mm-dd hh24:mi:ss'), 1000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('61245137220', '35170942001', 'Azul', '89619720000143', ID.NEXTVAL, 2000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('61245137220', '35170942001', 'Azul', '89619720000143', to_date('2022-08-20 23:10:01','yyyy-mm-dd hh24:mi:ss'), 2000);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('61245137220', '35170942001', 'Branco', '89619720000143', ID.NEXTVAL, 50000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('61245137220', '35170942001', 'Branco', '89619720000143', to_date('2022-08-20 23:12:01','yyyy-mm-dd hh24:mi:ss'), 50000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('61245137220', '35170942001', 'Amarelo', '89619720000143', ID.NEXTVAL, 4000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('61245137220', '35170942001', 'Amarelo', '89619720000143', to_date('2022-08-20 23:15:01','yyyy-mm-dd hh24:mi:ss'), 4000);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('45836067376', '35170942001', 'Azul', '89619720000143', ID.NEXTVAL, 9000);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('45836067376', '35170942001', 'Azul', '89619720000143', to_date('2022-08-25 18:30:01','yyyy-mm-dd hh24:mi:ss'), 9000);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('53885643715', '35170942001', 'Vermelho', '89619720000143', ID.NEXTVAL, 400);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('53885643715', '35170942001', 'Vermelho', '89619720000143', to_date('2022-11-23 18:00:01','yyyy-mm-dd hh24:mi:ss'), 400);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('85997072215', '35170942001', 'Amarelo', '89619720000143', ID.NEXTVAL, 1500);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('85997072215', '35170942001', 'Amarelo', '89619720000143', to_date('2022-07-10 09:40:23','yyyy-mm-dd hh24:mi:ss'), 1500);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('06027847514', '35170942001', 'Preto', '89619720000143', ID.NEXTVAL, 20);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('06027847514', '35170942001', 'Preto', '89619720000143', to_date('2022-08-17 02:01:34','yyyy-mm-dd hh24:mi:ss'), 20);
 
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('18956810818', '35170942001', 'Rosa', '89619720000143', ID.NEXTVAL, 20);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('18956810818', '35170942001', 'Rosa', '89619720000143', to_date('2022-08-19 23:33:01','yyyy-mm-dd hh24:mi:ss'), 20);
     
-INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, compra_ID, valor_compra)
-    VALUES ('62982197499', '35170942001', 'Rosa', '89619720000143', ID.NEXTVAL, 50);
+INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('62982197499', '35170942001', 'Rosa', '89619720000143', to_date('2022-08-20 17:03:01','yyyy-mm-dd hh24:mi:ss'), 50);
 
+        
 -- povoamento tabela contem
 
 INSERT INTO Contem(cnpj_casa, jogo_id)
@@ -807,79 +817,79 @@ INSERT INTO Contem(cnpj_casa, jogo_id)
 INSERT INTO Contem(cnpj_casa, jogo_id)
     VALUES ( '89619720000143', '8' );
 
+    
 -- povoamento tabela joga
 -- Grupinho jogando poker
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('55566621111', 3, to_date('2022-08-31 19:10:01','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('55566621111', 3, to_date('2022-08-31 19:10:01','yyyy-mm-dd hh24:mi:ss'), '51871590035');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('94044687544', 3, to_date('2022-08-31 19:10:01','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('94044687544', 3, to_date('2022-08-31 19:10:01','yyyy-mm-dd hh24:mi:ss'), '51871590035');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('34864572097', 3, to_date('2022-08-31 19:10:01','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('34864572097', 3, to_date('2022-08-31 19:10:01','yyyy-mm-dd hh24:mi:ss'), '51871590035');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('96382647217', 3, to_date('2022-08-31 19:10:01','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('96382647217', 3, to_date('2022-08-31 19:10:01','yyyy-mm-dd hh24:mi:ss'), '51871590035');
 
 
 -- Jogadores de Caça-Níquel
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('96382647217', 5, to_date('2022-08-20 23:50:34','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('96382647217', 5, to_date('2022-08-20 23:50:34','yyyy-mm-dd hh24:mi:ss'), NULL);
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('62538131103', 5, to_date('2022-02-27 19:45:56','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('62538131103', 5, to_date('2022-02-27 19:45:56','yyyy-mm-dd hh24:mi:ss'), NULL);
 
 -- Jogadores de BlackJack
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('17932577527', 1, to_date('2022-05-26 13:40:34','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('17932577527', 1, to_date('2022-05-26 13:40:34','yyyy-mm-dd hh24:mi:ss'), '95438868069');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('17932577527', 1, to_date('2022-05-27 13:42:34','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('17932577527', 1, to_date('2022-05-27 13:42:34','yyyy-mm-dd hh24:mi:ss'), '99518963088');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('17932577527', 1, to_date('2022-05-28 14:50:12','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('17932577527', 1, to_date('2022-05-28 14:50:12','yyyy-mm-dd hh24:mi:ss'), '99518963088');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('61245137220', 1, to_date('2022-10-10 20:10:30','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('61245137220', 1, to_date('2022-10-10 20:10:30','yyyy-mm-dd hh24:mi:ss'), '99518963088');
 
 -- Jogadores de Roleta
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('06027847514', 2, to_date('2022-08-30 21:10:30','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('06027847514', 2, to_date('2022-08-30 21:10:30','yyyy-mm-dd hh24:mi:ss'), '99518963088');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('85997072215', 2, to_date('2022-07-23 10:42:45','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('85997072215', 2, to_date('2022-07-23 10:42:45','yyyy-mm-dd hh24:mi:ss'), '29014744030');
 
 -- Jogadores de Roda da Fortuna
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('26744842684', 4, to_date('2022-04-28 21:10:18','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('26744842684', 4, to_date('2022-04-28 21:10:18','yyyy-mm-dd hh24:mi:ss'), '29014744030');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('26744842684', 4, to_date('2022-05-12 20:17:20','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('26744842684', 4, to_date('2022-05-12 20:17:20','yyyy-mm-dd hh24:mi:ss'), '29014744030');
 
 -- Jogadores de Pachinko
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('77648271427', 6, to_date('2022-08-23 19:12:00','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('77648271427', 6, to_date('2022-08-23 19:12:00','yyyy-mm-dd hh24:mi:ss'), '66559107060');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('93405446929', 6, to_date('2022-05-12 20:17:20','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('93405446929', 6, to_date('2022-05-12 20:17:20','yyyy-mm-dd hh24:mi:ss'), '66559107060');
 
 -- Grupinho jogando Craps 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('88634284255', 7, to_date('2022-06-12 23:15:14','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('88634284255', 7, to_date('2022-06-12 23:15:14','yyyy-mm-dd hh24:mi:ss'), '66559107060');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('62982197499', 7, to_date('2022-06-12 23:15:14','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('62982197499', 7, to_date('2022-06-12 23:15:14','yyyy-mm-dd hh24:mi:ss'), '78366263002');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('18956810818', 7, to_date('2022-06-12 23:15:14','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('18956810818', 7, to_date('2022-06-12 23:15:14','yyyy-mm-dd hh24:mi:ss'), '78366263002');
 
 -- Jogadores de Baccarat
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('53885643715', 8, to_date('2022-01-24 21:30:12','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('53885643715', 8, to_date('2022-01-24 21:30:12','yyyy-mm-dd hh24:mi:ss'), '96627054060');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('45836067376', 8, to_date('2022-06-05 22:42:57','yyyy-mm-dd hh24:mi:ss'));
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('45836067376', 8, to_date('2022-06-05 22:42:57','yyyy-mm-dd hh24:mi:ss'), '96627054060');
 
-INSERT INTO Joga(cpf_jogador, jogo_id, datahora)
-    VALUES ('55566621111', 8, to_date('2022-04-07 19:10:11','yyyy-mm-dd hh24:mi:ss'));
-    
+INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('55566621111', 8, to_date('2022-04-07 19:10:11','yyyy-mm-dd hh24:mi:ss'), '96627054060');
