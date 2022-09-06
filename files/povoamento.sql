@@ -461,8 +461,7 @@ INSERT INTO Ficha_casa (cnpj_casa, cor, valor)
 INSERT INTO Ficha_casa (cnpj_casa, cor, valor)
     VALUES('89619720000143','Branco',10000);
 
-
---POVOAMENTO TELEFONE
+--Povoamento Telefone
 INSERT INTO Numero_Telefone(cpf_pessoa, telefone)
     VALUES ('51871590035', '(81)9874-5632');
 
@@ -816,8 +815,6 @@ INSERT INTO Contem(cnpj_casa, jogo_id)
     
 INSERT INTO Contem(cnpj_casa, jogo_id)
     VALUES ( '89619720000143', '8' );
-
-    
 -- povoamento tabela joga
 -- Grupinho jogando poker
 INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
