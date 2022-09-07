@@ -738,7 +738,7 @@ INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora,
 INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
     VALUES ('62982197499', '35170942001', 'Rosa', '89619720000143', to_date('2022-08-20 17:03:01','yyyy-mm-dd hh24:mi:ss'), 50);
 
-        
+
 -- povoamento tabela contem
 
 INSERT INTO Contem(cnpj_casa, jogo_id)
@@ -815,6 +815,7 @@ INSERT INTO Contem(cnpj_casa, jogo_id)
     
 INSERT INTO Contem(cnpj_casa, jogo_id)
     VALUES ( '89619720000143', '8' );
+
 -- povoamento tabela joga
 -- Grupinho jogando poker
 INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)

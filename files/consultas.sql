@@ -180,7 +180,7 @@ BEGIN
 END;
 
 -- 2) TABLE
--- Criar uma variável do tipo tabela, para armazenar preços hipotéticos de entrada de jogos
+-- Criar uma variável do tipo tabela para armazenar preços hipotéticos de entrada de jogos
 DECLARE
     TYPE Tabela_Precos IS TABLE OF Jogo.custo%TYPE
     INDEX BY BINARY_INTEGER;
@@ -193,6 +193,80 @@ BEGIN
     dbms_output.put_line(variavel_tabela(1));
     dbms_output.put_line(variavel_tabela(2));
     dbms_output.put_line(variavel_tabela(3));
+END;
+
+-- 3) BLOCO ANÔNIMO
+-- Criar um bloco anônimo para checar qual (e se houve) jogo jogado em uma datahora específica
+-- Utilização do CASE WHEN para identificar o id do jogo que foi jogado naquela hora
+DECLARE 
+    v_datahora TIMESTAMP := TO_DATE('2022-08-20 23:50:34','yyyy-mm-dd hh24:mi:ss');
+    v_jogoid INTEGER;
+    v_nomejogo VARCHAR2(255);
+BEGIN
+    SELECT jogo_id INTO v_jogoid FROM Joga WHERE datahora = v_datahora;
+    CASE v_jogoid
+        WHEN 1 THEN v_nomejogo := 'Blackjack';
+        WHEN 2 THEN v_nomejogo := 'Roleta';
+        WHEN 3 THEN v_nomejogo := 'Poker';
+        WHEN 4 THEN v_nomejogo := 'Roda da Fortuna';
+        WHEN 5 THEN v_nomejogo := 'Caça-Níquel';
+        WHEN 6 THEN v_nomejogo := 'Pachinko';
+        WHEN 7 THEN v_nomejogo := 'Craps';
+        WHEN 8 THEN v_nomejogo := 'Baccarat';
+    END CASE;
+        dbms_output.put_line(v_nomejogo);
+    EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+        dbms_output.put_line('Não houve jogo realizado nesse dia e horário.');
+END;
+
+-- 4) PROCEDURE
+-- Criar um procedimento para Inserir uma nova partida na tabela Joga
+CREATE OR REPLACE PROCEDURE InserePartida(
+    p_cpfjogador IN Joga.cpf_jogador%TYPE,
+    p_jogoid IN Joga.jogo_id%TYPE,
+    p_datahora IN Joga.datahora%TYPE,
+    p_cpffuncionario IN Joga.cpf_funcionario%TYPE) IS
+BEGIN
+        INSERT INTO Joga(cpf_jogador, jogo_id, datahora,cpf_funcionario)
+            VALUES (p_cpfjogador, p_jogoid, p_datahora, p_cpffuncionario);
+END;
+
+-- Chamar o Procedimento adicionando um jogador à partida
+BEGIN
+    InserePartida('17932577527', 4, to_date('2022-05-29 10:32:48','yyyy-mm-dd hh24:mi:ss'), '29014744030');
+END;
+
+-- 5) FUNCTION
+-- Função para atualizar o valor da carteira de um Jogador baseado em um jogo que ele entrou
+CREATE OR REPLACE FUNCTION AtualizaCarteira(
+    f_cpfjogador IN Jogador.cpf_jogador%TYPE,
+    f_jogoid IN Jogo.id%TYPE) 
+    RETURN NUMBER IS
+        resultado Jogador.carteira%TYPE;
+        carteira_atual Jogador.carteira%TYPE;
+        custo_jogo Jogo.custo%TYPE;
+BEGIN
+        SELECT J.carteira INTO carteira_atual FROM Jogador J
+        WHERE J.cpf_jogador = f_cpfjogador;
+
+        SELECT G.Custo INTO custo_jogo FROM Jogo G
+        WHERE G.id = f_jogoid;
+
+        resultado := carteira_atual - custo_jogo;
+
+        IF resultado < 0 
+            THEN return carteira_atual;
+        ELSE return resultado;
+        END IF;
+END;
+
+-- Bloco para chamar a função Atualiza Carteira
+DECLARE
+    v_atualizado NUMBER;
+BEGIN
+    v_atualizado := AtualizaCarteira('77648271427', 3);
+    dbms_output.put_line(v_atualizado);  
 END;
 
 -- 6) %TYPE
@@ -272,11 +346,40 @@ BEGIN
 END;
 
 -- 11) WHILE LOOP
---  
-DECLARE
-    
+-- Criar um laço para saber qual o jogo mais jogado daquele momento
+-- Para simplificar, criamos uma função MaisJogado
+CREATE OR REPLACE FUNCTION MaisJogado
+    RETURN NUMBER IS
+        num_jogos NUMBER;
+        i NUMBER; -- Número que usaremos para a condição do while
+        valor_maisjogado NUMBER; -- Variável que guarda a quantidadade de vezes que o mais jogado foi jogado
+        id_maisjogado NUMBER; -- Variável que guarda o id do jogo mais jogado
+        auxiliar NUMBER; -- Variável que guarda o id do jogo atual
 BEGIN
+        i := 1;
+        num_jogos := 8;
+        valor_maisjogado := -1;
+        WHILE (i <= num_jogos) LOOP
+            SELECT COUNT(*) INTO auxiliar FROM Joga
+            WHERE Joga.jogo_id = i;
+            IF auxiliar > valor_maisjogado THEN
+                id_maisjogado := i;
+                valor_maisjogado := auxiliar;
+            END IF;
+            i := i + 1;
+        END LOOP;
+        return id_maisjogado;
+END;
 
+-- Bloco para facilitar o teste da função MaisJogado
+DECLARE
+    v_maisjogado NUMBER;
+    v_nome_maisjogado VARCHAR(255);
+BEGIN
+    v_maisjogado := MaisJogado;
+    SELECT J.nome INTO v_nome_maisjogado FROM Jogo J
+    WHERE J.id = v_maisjogado;
+    dbms_output.put_line(v_nome_maisjogado);
 END;
 
 -- 12) FOR IN LOOP
@@ -315,4 +418,22 @@ BEGIN
     dbms_output.put_line(v_emprego.cargo);
     dbms_output.put_line(v_emprego.salario);
     dbms_output.put_line(v_emprego.cnpj_casa);
+END;
+
+-- 14) CURSOR (OPEN, FETCH e CLOSE)
+--
+
+-- 15) EXCEPTION WHEN
+-- Funcionario tenta alterar o salário de outro sem ser supervisor
+CREATE OR REPLACE PROCEDURE AlterarSalario(
+    cpf_func_logado IN Funcionario.cpf_funcionario%TYPE, -- Funcionario que tenta fazer a alteração
+    cpf_func_alterado IN Funcionario.cpf_funcionario%TYPE, -- Funcionario que terá seu salário alterado
+    novo_valor NUMBER) IS
+BEGIN
+    
+    SELECT F.salario FROM Funcionario F
+    WHERE F.cpf_funcionario = cpf_func_alterado
+    
+    EXCEPTION
+        WHEN 
 END;
