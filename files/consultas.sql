@@ -421,19 +421,38 @@ BEGIN
 END;
 
 -- 14) CURSOR (OPEN, FETCH e CLOSE)
---
+-- 
 
 -- 15) EXCEPTION WHEN
--- Funcionario tenta alterar o salário de outro sem ser supervisor
+-- Funcionario tenta alterar o salário de um cargo sem ser supervisor
 CREATE OR REPLACE PROCEDURE AlterarSalario(
-    cpf_func_logado IN Funcionario.cpf_funcionario%TYPE, -- Funcionario que tenta fazer a alteração
-    cpf_func_alterado IN Funcionario.cpf_funcionario%TYPE, -- Funcionario que terá seu salário alterado
-    novo_valor NUMBER) IS
+    p_cpf_func_logado IN Funcionario.cpf_funcionario%TYPE, -- Funcionario que tenta fazer a alteração
+    p_cnpj IN Emprego.cnpj_casa%TYPE, -- Cnpj da casa
+    P_cargo_alterado IN Emprego.cargo%TYPE, -- Cargo que será alterado
+    p_novo_valor NUMBER) -- Valor que o funcionario deseja alterar
+    IS
+    p_cargo_func_logado VARCHAR(30); -- Variável para obter o cargo do funcionario que deseja alterar
+    not_supervisor EXCEPTION; -- Declaração da Exceção
 BEGIN
-    
-    SELECT F.salario FROM Funcionario F
-    WHERE F.cpf_funcionario = cpf_func_alterado
-    
+
+    -- Consulta para checar se o funcionário é Supervisor
+    SELECT F.cargo_funcionario INTO p_cargo_func_logado FROM Funcionario F
+    WHERE F.cpf_funcionario = p_cpf_func_logado;
+
+    IF p_cargo_func_logado != 'Supervisor' THEN
+        RAISE not_supervisor;
+    ELSE -- Entra no ELSE caso seja Supervisor
+        UPDATE Emprego
+        SET salario = p_novo_valor
+        WHERE cargo = P_cargo_alterado AND cnpj_casa = p_cnpj;
+    END IF;
+
     EXCEPTION
-        WHEN 
+        WHEN not_supervisor THEN
+        RAISE_APPLICATION_ERROR(-20215, 'Apenas Supervisores podem alterar o salário de outros funcionários');
+END;
+
+-- Bloco para testar o procedimento em que ocorre a exceção
+BEGIN
+    AlterarSalario('99942745033', '40658419000150', 'Caixa', 200000);
 END;
