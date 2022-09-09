@@ -582,7 +582,6 @@ INSERT INTO Numero_Telefone(cpf_pessoa, telefone)
 INSERT INTO Numero_Telefone(cpf_pessoa, telefone)
     VALUES ('61245137220', '(35)3146-8727');
 
-
 --Povoamento da tabela compra
 INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
     VALUES ('55566621111', '99942745033', 'Branco', '40658419000150', to_date('2022-08-25 19:10:01','yyyy-mm-dd hh24:mi:ss'), 8);
@@ -636,10 +635,10 @@ INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora,
     VALUES ('17932577527', '99942745033', 'Vermelho', '40658419000150', to_date('2022-08-15 23:42:01','yyyy-mm-dd hh24:mi:ss'), 150);
     
 INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
-    VALUES ('38612505780', '99942745033', 'Amarelo', '40658419000150', to_date('2022-08-01 20:10:01','yyyy-mm-dd hh24:mi:ss'), 500);
+    VALUES ('38612505780', '99942745033', 'Amarelo', '40658419000150', to_date('2022-08-07 20:10:01','yyyy-mm-dd hh24:mi:ss'), 500);
 
 INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
-    VALUES ('38612505780', '99942745033', 'Preto', '40658419000150', to_date('2022-08-01 20:12:01','yyyy-mm-dd hh24:mi:ss'), 50000);
+    VALUES ('38612505780', '99942745033', 'Preto', '40658419000150', to_date('2022-08-07 20:12:01','yyyy-mm-dd hh24:mi:ss'), 50000);
     
 INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
     VALUES ('93405446929', '99942745033', 'Verde', '40658419000150', to_date('2022-08-26 20:00:01','yyyy-mm-dd hh24:mi:ss'), 1000);
@@ -884,7 +883,7 @@ INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
 
 -- Jogadores de Baccarat
 INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
-    VALUES ('53885643715', 8, to_date('2022-01-24 21:30:12','yyyy-mm-dd hh24:mi:ss'), '96627054060');
+    VALUES ('53885643715', 8, to_date('2022-02-24 21:30:12','yyyy-mm-dd hh24:mi:ss'), '96627054060');
 
 INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
     VALUES ('45836067376', 8, to_date('2022-06-05 22:42:57','yyyy-mm-dd hh24:mi:ss'), '96627054060');

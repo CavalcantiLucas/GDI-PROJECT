@@ -3,7 +3,7 @@
 -- 1) ALTER TABLE
 -- Adicionar um atributo que diz se o jogo é jogado em uma máquina ou fisicamente, e depois remove
 ALTER TABLE Pessoa ADD CHECK (idade > 18);
-
+/
 -- 2) CREATE INDEX
 -- Criar um index para o salario dos cargos
 CREATE INDEX indice_salario ON Emprego(salario);
@@ -178,7 +178,7 @@ BEGIN
     dbms_output.put_line(func_register.salario);
     dbms_output.put_line(func_register.cargo);
 END;
-
+/
 -- 2) TABLE
 -- Criar uma variável do tipo tabela para armazenar preços hipotéticos de entrada de jogos
 DECLARE
@@ -194,7 +194,7 @@ BEGIN
     dbms_output.put_line(variavel_tabela(2));
     dbms_output.put_line(variavel_tabela(3));
 END;
-
+/
 -- 3) BLOCO ANÔNIMO
 -- Criar um bloco anônimo para checar qual (e se houve) jogo jogado em uma datahora específica
 -- Utilização do CASE WHEN para identificar o id do jogo que foi jogado naquela hora
@@ -219,7 +219,7 @@ BEGIN
         WHEN NO_DATA_FOUND THEN
         dbms_output.put_line('Não houve jogo realizado nesse dia e horário.');
 END;
-
+/
 -- 4) PROCEDURE
 -- Criar um procedimento para Inserir uma nova partida na tabela Joga
 CREATE OR REPLACE PROCEDURE InserePartida(
@@ -231,12 +231,12 @@ BEGIN
         INSERT INTO Joga(cpf_jogador, jogo_id, datahora,cpf_funcionario)
             VALUES (p_cpfjogador, p_jogoid, p_datahora, p_cpffuncionario);
 END;
-
+/
 -- Chamar o Procedimento adicionando um jogador à partida
 BEGIN
     InserePartida('17932577527', 4, to_date('2022-05-29 10:32:48','yyyy-mm-dd hh24:mi:ss'), '29014744030');
 END;
-
+/
 -- 5) FUNCTION
 -- Função para atualizar o valor da carteira de um Jogador baseado em um jogo que ele entrou
 CREATE OR REPLACE FUNCTION AtualizaCarteira(
@@ -260,7 +260,7 @@ BEGIN
         ELSE return resultado;
         END IF;
 END;
-
+/
 -- Bloco para chamar a função Atualiza Carteira
 DECLARE
     v_atualizado NUMBER;
@@ -268,7 +268,7 @@ BEGIN
     v_atualizado := AtualizaCarteira('77648271427', 3);
     dbms_output.put_line(v_atualizado);  
 END;
-
+/
 -- 6) %TYPE
 -- Criar uma variável do mesmo tipo que o tipo do atributo cargo da tabela Emprego
 DECLARE 
@@ -277,7 +277,7 @@ BEGIN
     profissao := 'Barman';
     dbms_output.put_line(profissao);
 END;
-
+/
 -- 7) %ROWTYPE
 -- Criar uma variável de registro de tipo igual à tabela Joga
 DECLARE
@@ -293,7 +293,7 @@ BEGIN
     dbms_output.put_line(v_joga.datahora);
     dbms_output.put_line(v_joga.cpf_funcionario);
 END;
-    
+/   
 -- 8) IF ELSIF
 -- Checar se o custo medio de entrada dos jogos é caro, justo ou barato
 DECLARE
@@ -308,7 +308,7 @@ BEGIN
     ELSE dbms_output.put_line('Barato');
     END IF;
 END;
-
+/
 -- 9) CASE WHEN
 -- Iterar pelos preços das fichas da casa que tem o cnpj '40658419000150', e printar a cor das fichas relacionados aqueles preços
 BEGIN
@@ -323,7 +323,7 @@ BEGIN
         END CASE;
     END LOOP;
 END;
-
+/
 -- 10) LOOP EXIT WHEN
 -- Iterar sobre todos os indices da variável tabela Tabela_Precos
 DECLARE
@@ -344,7 +344,7 @@ BEGIN
     EXIT WHEN iterator > 5;
     END LOOP;
 END;
-
+/
 -- 11) WHILE LOOP
 -- Criar um laço para saber qual o jogo mais jogado daquele momento
 -- Para simplificar, criamos uma função MaisJogado
@@ -370,7 +370,7 @@ BEGIN
         END LOOP;
         return id_maisjogado;
 END;
-
+/
 -- Bloco para facilitar o teste da função MaisJogado
 DECLARE
     v_maisjogado NUMBER;
@@ -381,7 +381,7 @@ BEGIN
     WHERE J.id = v_maisjogado;
     dbms_output.put_line(v_nome_maisjogado);
 END;
-
+/
 -- 12) FOR IN LOOP
 -- Iterar por cada funcionário e contar quantos funcionários não gerenciaram nenhuma partida
 DECLARE
@@ -402,10 +402,9 @@ BEGIN
     END LOOP;
     dbms_output.put_line('Existem '|| cont_func_sem_jogos || ' funcionários sem participar de nenhuma partida.');
 END;
-
+/
 -- 13) SELECT ... INTO
 -- Armazenar em uma variável o cargo, salário e cnpj da casa que paga o maior salário
-
 DECLARE
     v_emprego Emprego%ROWTYPE;
     v_max_salario NUMBER;
@@ -419,9 +418,26 @@ BEGIN
     dbms_output.put_line(v_emprego.salario);
     dbms_output.put_line(v_emprego.cnpj_casa);
 END;
-
+/
 -- 14) CURSOR (OPEN, FETCH e CLOSE)
--- 
+-- Imprimir todas as informações dos funcionários em ordem alfabetica
+DECLARE
+    nome_cursor Pessoa.nome%TYPE;
+    CURSOR cs_funcionario IS
+    SELECT p.nome FROM pessoa p
+    INNER JOIN funcionario f ON p.cpf = f.cpf_funcionario
+    ORDER BY p.nome ASC;      
+BEGIN
+    OPEN cs_funcionario;
+    LOOP 
+        FETCH cs_funcionario INTO nome_cursor;
+        EXIT WHEN cs_funcionario%NOTFOUND;
+        dbms_output.put_line(nome_cursor);
+    END LOOP;
+    CLOSE cs_funcionario;
+END;
+/
+
 
 -- 15) EXCEPTION WHEN
 -- Funcionario tenta alterar o salário de um cargo sem ser supervisor
@@ -451,8 +467,151 @@ BEGIN
         WHEN not_supervisor THEN
         RAISE_APPLICATION_ERROR(-20215, 'Apenas Supervisores podem alterar o salário de outros funcionários');
 END;
-
+/
 -- Bloco para testar o procedimento em que ocorre a exceção
 BEGIN
     AlterarSalario('99942745033', '40658419000150', 'Caixa', 200000);
 END;
+/
+
+-- 16) USO DE PARÂMETROS (IN, OUT ou IN OUT)
+-- Procedimento para inserir nova casa como na abertura de uma nova franquia
+CREATE OR REPLACE PROCEDURE insereNovaCasa(
+    p_cnpj IN Casa.cnpj%TYPE,
+    p_nome IN Casa.nome%TYPE,
+    p_saldo IN Casa.saldo%TYPE)
+    IS
+BEGIN
+    INSERT INTO Casa(cnpj, nome, saldo)
+    VALUES (p_cnpj, p_nome, p_saldo);
+END;
+/
+-- código de teste do procedimento
+BEGIN
+    insereNovaCasa('12345678900000', 'El mesos', 900000);
+END;
+/
+-- Para checar se a casa foi adicionada
+select * from casa
+/
+-- 17) CREATE OR REPLACE PACKAGE
+-- Um pacote em que tem um procedimento e uma variável do tipo table, em que o procedimento recebe um CPF
+-- E devolve uma tabela com todas as compras daquele CPF
+
+CREATE OR REPLACE PACKAGE todas_compras AS
+
+    TYPE t_compraTable IS TABLE OF compra.valor_compra%TYPE
+    INDEX BY BINARY_INTEGER;
+    
+    PROCEDURE listaCompras(
+        p_cpfjogador IN jogador.cpf_jogador%TYPE,
+        p_valor_compra OUT t_compraTable 
+    );
+
+END todas_compras;
+/
+
+-- 18) CREATE OR REPLACE PACKAGE BODY
+-- Corpo do pacote do item 17
+CREATE OR REPLACE PACKAGE BODY todas_compras AS
+
+    PROCEDURE listaCompras(
+        p_cpfjogador IN jogador.cpf_jogador%TYPE,
+        p_valor_compra OUT t_compraTable
+    ) IS
+    iterator BINARY_INTEGER;   
+    valor compra.valor_compra%TYPE;
+    CURSOR c_compras IS
+    SELECT valor_compra FROM Compra
+    WHERE cpf_jogador = p_cpfjogador;
+    BEGIN
+        iterator := 0;
+        OPEN c_compras;
+        LOOP
+            FETCH c_compras INTO valor;
+            EXIT  WHEN c_compras%NOTFOUND;
+            iterator := iterator + 1;
+            p_valor_compra(iterator) := valor;
+        END LOOP; 
+    END listaCompras;
+
+END todas_compras;
+/
+--Testar o package
+--Se quiser mudar o CPF, muda nos dois parametros, na chamada da função e no select
+DECLARE
+    tabela todas_compras.t_compraTable;
+    quantidade NUMBER;
+    iterator NUMBER;
+BEGIN
+    iterator := 1;
+    todas_compras.listaCompras('55566621111', tabela);
+    SELECT count(*) into quantidade FROM Compra WHERE cpf_jogador = '55566621111'; 
+    WHILE (iterator <= quantidade)LOOP
+        dbms_output.put_line(tabela(iterator));
+        iterator := iterator + 1;
+    END LOOP;
+END;
+/
+
+
+-- 19) TRIGGER (COMANDO)
+-- A casa não funciona no primeiro dia do mês, se alguém tentar
+-- JOGAR algum jogo nesse dia, a operação não pode acontecer
+
+-- Para testar se está funcionando, basta mudar o dia do "IF dia IN('1')" para o dia atual
+-- em que você está testando
+CREATE OR REPLACE TRIGGER DiaLivre
+BEFORE INSERT ON Joga
+DECLARE
+    dia varchar(2);
+    dia_livre EXCEPTION;
+BEGIN
+    dia := EXTRACT(day from sysdate());
+    
+    IF dia IN ('1') THEN
+        RAISE dia_livre;
+    END IF;
+EXCEPTION
+    WHEN dia_livre THEN
+    Raise_application_error(-20202, 'Hoje o Cassino não abre! Volte amanhã!');
+END;
+/
+-- Bloco para testar o trigger
+BEGIN
+    INSERT INTO Joga(cpf_jogador, jogo_id, datahora, cpf_funcionario)
+    VALUES ('55566621111', 3, to_date('2022-09-01 19:10:01','yyyy-mm-dd hh24:mi:ss'), '51871590035');
+END;
+/
+
+
+-- 20) TRIGGER (LINHA)
+-- Criar um Trigger de linha para quando uma compra for inserida na tabela Compra,
+-- a Casa vai ter o seu saldo incrementado com o valor da compra
+CREATE OR REPLACE TRIGGER AtualizaSaldo
+AFTER INSERT ON Compra
+FOR EACH ROW
+BEGIN
+    UPDATE Casa
+    SET saldo = saldo + :NEW.valor_compra
+    WHERE cnpj = :NEW.cnpj_casa;
+END;
+/
+-- Para ativar o Trigger, fizemos o bloco abaixo
+BEGIN
+    INSERT INTO Compra(cpf_jogador, cpf_funcionario, cor_ficha, cnpj_casa, datahora, valor_compra)
+    VALUES ('42824439602', '99942745033', 'Verde', '40658419000150', to_date('2022-08-27 10:22:21','yyyy-mm-dd hh24:mi:ss'), 200);
+END;
+/
+-- 20.1) TRIGGER (LINHA) 2.0
+-- Trigger para checar se, caso um Funcionário que esteja sendo inserido
+-- não seja um supervisor, ele DEVE possuir um supervisor
+CREATE OR REPLACE TRIGGER tem_supervisor
+BEFORE INSERT ON Funcionario
+FOR EACH ROW
+BEGIN
+    IF :NEW.cargo_funcionario != 'Supervisor' AND :NEW.cpf_supervisor IS NULL THEN
+        RAISE_APPLICATION_ERROR(-20123, 'Todo funcionário não Supervisor deve possuir um Supervisor');
+    END IF;
+END;
+/
