@@ -389,7 +389,6 @@ INSERT INTO tb_compra VALUES(tp_compra(
 ));
 
 
-
 -- Inserções da tabela JOGO-CASA
 -- INSERT INTO(17), REF(15)
 INSERT INTO tb_jogo_casa VALUES (tp_jogo_casa(
