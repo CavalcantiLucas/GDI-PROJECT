@@ -33,11 +33,11 @@ CREATE TYPE tb_fichas AS TABLE OF tp_ficha;
 / 
 
 -- CREATE TYPE(1):
--- Tipo EMPREGO - Objeto
+-- Tipo JOGO - Objeto
 CREATE OR REPLACE TYPE tp_jogo AS OBJECT(
     id VARCHAR2(10),
-    nome_do_jogo VARCHAR2(20),
-    custo_para_jogar NUMBER
+    nome_jogo VARCHAR2(20),
+    custo_jogo NUMBER
 );
 /
 
@@ -241,7 +241,8 @@ CREATE TABLE tb_jogador OF tp_jogador(
 -- tabela de funcionarios
 CREATE TABLE tb_funcionario OF tp_funcionario(
     cpf PRIMARY KEY,
-    supervisor SCOPE IS tb_funcionario
+    supervisor SCOPE IS tb_funcionario,
+    casa SCOPE IS tb_casa
 );
 /
 -- CREATE TABLE (13)
@@ -294,6 +295,13 @@ INSERT INTO tb_jogador VALUES(tp_jogador('42824439602', 'Gabriel Barbosa Almeida
                               tp_endereco('89218055', 'Ap 3001', '1226', 'Rua Blumenau'),
                               tp_fones(tp_telefone('947589268'), tp_telefone('915745987')), 10000));                             
                               
+-- Inserções da tabela CASA
+-- INSERT INTO(17), NESTED TABLE(20)
+INSERT INTO tb_casa VALUES(tp_casa('40658419000150', 'El Frejo', 7850000, tb_fichas(tp_ficha('Branco', 1),tp_ficha('Vermelho',5),tp_ficha('Azul',10), tp_ficha('Verde',50), tp_ficha('Amarelo',100), tp_ficha('Preto',1000))));
+
+INSERT INTO tb_casa VALUES(tp_casa('07829772000180', 'The Wild Jack', 4121000, tb_fichas(tp_ficha('Amarelo',1),tp_ficha('Rosa',10),tp_ficha('Vermelho',100), tp_ficha('Azul',500), tp_ficha('Preto',1000), tp_ficha('Verde',5000))));
+
+INSERT INTO tb_casa VALUES(tp_casa('89619720000143', 'Tranquility Base Hotel & Casino', 8428223, tb_fichas(tp_ficha('Preto',1),tp_ficha('Rosa',10),tp_ficha('Vermelho',100), tp_ficha('Amarelo',500), tp_ficha('Azul',1000), tp_ficha('Branco',10000))));
 
 -- Inserções da tabela FUNCIONARIO
 -- INSERT INTO(17), REF(15)
@@ -327,14 +335,6 @@ INSERT INTO tb_funcionario VALUES(tp_funcionario('49869393004', 'Andreia Duboc',
 INSERT INTO tb_funcionario VALUES(tp_funcionario('66559107060', 'Matheus Frej Lemos C.', 'M', 62,
                               tp_endereco('74971460', 'Ap 101', '800', 'Travessa 1'),
                               tp_fones(tp_telefone('992342832'), tp_telefone('995481378'),tp_telefone('991222418')), 'Dealer', 4900, (SELECT REF(c) FROM tb_casa c WHERE c.cnpj = '89619720000143'), (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '49869393004')));
-
--- Inserções da tabela CASA
--- INSERT INTO(17), NESTED TABLE(20)
-INSERT INTO tb_casa VALUES(tp_casa('40658419000150', 'El Frejo', 7850000, tb_fichas(tp_ficha('Branco', 1),tp_ficha('Vermelho',5),tp_ficha('Azul',10), tp_ficha('Verde',50), tp_ficha('Amarelo',100), tp_ficha('Preto',1000))));
-
-INSERT INTO tb_casa VALUES(tp_casa('07829772000180', 'The Wild Jack', 4121000, tb_fichas(tp_ficha('Amarelo',1),tp_ficha('Rosa',10),tp_ficha('Vermelho',100), tp_ficha('Azul',500), tp_ficha('Preto',1000), tp_ficha('Verde',5000))));
-
-INSERT INTO tb_casa VALUES(tp_casa('89619720000143', 'Tranquility Base Hotel & Casino', 8428223, tb_fichas(tp_ficha('Preto',1),tp_ficha('Rosa',10),tp_ficha('Vermelho',100), tp_ficha('Amarelo',500), tp_ficha('Azul',1000), tp_ficha('Branco',10000))));
 
 
 -- Inserções da tabela JOGO
