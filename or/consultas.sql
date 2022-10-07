@@ -6,6 +6,7 @@ WHERE J.carteira = (SELECT MIN(J2.carteira) FROM tb_jogador J2);
 --
 -- (REF)
 
+
 -- Consultas da tabela funcionario (DEREF)
 -- Funcionários que têm o cargo caixa e trabalham na casa de cnpj 40658419000150
 SELECT F.nome, DEREF(F.casa).nome as casa FROM tb_funcionario F

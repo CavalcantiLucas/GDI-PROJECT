@@ -221,9 +221,6 @@ CREATE OR REPLACE TYPE tp_joga AS OBJECT(
 /
 
 
-
-
-
 ------------------------------------------------------------------------
 -- CREATE TABLE (13), NESTED TABLE(20)
 -- tabela de casas
@@ -254,7 +251,9 @@ CREATE TABLE tb_jogo OF tp_jogo(
 -- CREATE TABLE (13)
 -- tabela de compras
 CREATE TABLE tb_compra OF tp_compra(
-    id PRIMARY KEY
+    id PRIMARY KEY,
+    jogador WITH ROWID REFERENCES tb_jogador,
+    funcionario WITH ROWID REFERENCES tb_funcionario
 );
 /
 -- CREATE TABLE (13), WITH ROWID(14)
@@ -266,7 +265,11 @@ CREATE TABLE tb_jogo_casa OF tp_jogo_casa(
 /
 -- CREATE TABLE (13)
 -- tabela de partidas que ocorreram
-CREATE TABLE tb_joga OF tp_joga;
+CREATE TABLE tb_joga OF tp_joga(
+    jogo WITH ROWID REFERENCES tb_jogo,
+    jogador WITH ROWID REFERENCES tb_jogador,
+    funcionario WITH ROWID REFERENCES tb_funcionario
+);
 /
 
 
