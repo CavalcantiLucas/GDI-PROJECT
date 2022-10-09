@@ -149,7 +149,7 @@ CREATE OR REPLACE TYPE tp_funcionario UNDER tp_pessoa(
     
     OVERRIDING MEMBER PROCEDURE display_info,
     MEMBER FUNCTION salarioAnual RETURN NUMBER,
-    CONSTRUCTOR FUNCTION tp_funcionario(x1 tp_funcionario) RETURN SELF AS RESULT
+    CONSTRUCTOR FUNCTION tp_funcionario(SELF IN OUT NOCOPY tp_funcionario, p_cpf VARCHAR2, p_nome VARCHAR2, p_sexo VARCHAR2, p_idade NUMBER) RETURN SELF AS RESULT
 );
 /
 -- ALTER TYPE (12)
@@ -161,6 +161,7 @@ ALTER TYPE tp_funcionario
 -- CREATE TYPE BODY(2), OVERRIDING MEMBER PROCEDURE(3), CONSTRUCTOR FUNCTION(7)
 -- Corpo do tp_funcionario
 CREATE OR REPLACE TYPE BODY tp_funcionario AS
+
     OVERRIDING MEMBER PROCEDURE display_info IS
     BEGIN
         dbms_output.put_line('Nome: ' || nome);
@@ -175,19 +176,19 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
     BEGIN
         RETURN salario*12;
     END;
-
-    CONSTRUCTOR FUNCTION tp_funcionario (x1 tp_funcionario) RETURN SELF AS RESULT IS 
+    
+    CONSTRUCTOR FUNCTION tp_funcionario(SELF IN OUT tp_funcionario, p_cpf VARCHAR2, p_nome VARCHAR2, p_sexo VARCHAR2, p_idade NUMBER) RETURN SELF AS RESULT IS
     BEGIN
-        cpf := x1.cpf;
-        nome := x1.nome;
-        sexo := x1.sexo;
-        idade := x1.idade;
-        endereco := x1.endereco;
-        telefones := x1.telefones;
-        cargo_funcionario := x1.cargo_funcionario;
-        salario := x1.salario;
-        casa := x1.casa;
-        supervisor := x1.supervisor;
+        SELF.nome := p_nome;
+        SELF.cpf := p_cpf;
+        SELF.sexo := p_sexo;
+        SELF.idade := p_idade;
+        SELF.endereco := NULL;
+        SELF.telefones := NULL;
+        SELF.cargo_funcionario := 'Caixa';
+        SELF.salario := 2200;
+        SELF.casa := NULL;
+        SELF.supervisor := NULL;
         RETURN;
     END;
 
