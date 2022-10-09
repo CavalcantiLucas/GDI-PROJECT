@@ -322,7 +322,7 @@ INSERT INTO tb_funcionario VALUES(tp_funcionario('51871590035', 'João Pedro Bar
 
 INSERT INTO tb_funcionario VALUES(tp_funcionario('99942745033', 'Lucas Oliveira Cavalcanti', 'M', 30,
                               tp_endereco('54505390', NULL, '322', 'Rua Conde da Boa Vista'),
-                              tp_fones(tp_telefone('992005132')), 'Caixa', 3500, (SELECT REF(c) FROM tb_casa c WHERE c.cnpj = '40658419000150'), (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '42777797005')));
+                              tp_fones(tp_telefone('992005132')), 'Caixa', 3500, (SELECT REF(c) FROM tb_casa c WHERE c.cnpj = '40658419000150'), (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '95068505005')));
 
 INSERT INTO tb_funcionario VALUES(tp_funcionario('61888835044', 'João Lucas Alves', 'M', 34,
                               tp_endereco('69908650', NULL, '89', 'Avenida Getúlio Vargas'),
@@ -386,7 +386,7 @@ INSERT INTO tb_compra VALUES(tp_compra(
 
 INSERT INTO tb_compra VALUES(tp_compra(
     (SELECT REF(F) FROM tb_funcionario F WHERE F.cpf = '61888835044'),
-    (SELECT REF(J) FROM tb_jogador J WHERE J.cpf = '26744842684'),
+    (SELECT REF(J) FROM tb_jogador J WHERE J.cpf = '94044687544'),
     (SELECT VALUE(FC) FROM tb_casa c, TABLE(c.fichas) FC WHERE FC.cor = 'Verde' AND c.cnpj = '07829772000180'),
     5,
     5000
