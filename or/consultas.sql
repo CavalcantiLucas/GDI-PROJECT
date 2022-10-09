@@ -5,16 +5,14 @@ WHERE J.carteira = (SELECT MIN(J2.carteira) FROM tb_jogador J2);
 /
 --
 -- (REF)
-DECLARE
-    ref_casa REF tp_casa;
-    v_casa tp_casa;
-BEGIN
-    SELECT REF(c) INTO ref_casa FROM tb_casa c WHERE c.cnpj = '40658419000150';
-    SELECT DEREF(ref_casa) INTO v_casa FROM DUAL;
-    dbms_output.put_line('Nome da Casa: ' || v_casa.nome);
-    dbms_output.put_line('Saldo da Casa: R$' || v_casa.saldo);
-    dbms_output.put_line('CNPJ da Casa: ' || v_casa.cnpj);
-END;
+-- Inserir uma nova compra
+INSERT INTO tb_compra VALUES(tp_compra(
+    (SELECT REF(F) FROM tb_funcionario F WHERE F.cpf = '61888835044'),
+    (SELECT REF(J) FROM tb_jogador J WHERE J.cpf = '19321816283'),
+    (SELECT VALUE(FC) FROM tb_casa c, TABLE(c.fichas) FC WHERE FC.cor = 'Azul' AND c.cnpj = '07829772000180'),
+    6,
+    3500
+));
 /
 
 -- (DEREF)
