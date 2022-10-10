@@ -176,6 +176,7 @@ CREATE OR REPLACE TYPE BODY tp_funcionario AS
     BEGIN
         RETURN salario*12;
     END;
+
     
     CONSTRUCTOR FUNCTION tp_funcionario(SELF IN OUT tp_funcionario, p_cpf VARCHAR2, p_nome VARCHAR2, p_sexo VARCHAR2, p_idade NUMBER) RETURN SELF AS RESULT IS
     BEGIN
@@ -328,6 +329,10 @@ INSERT INTO tb_funcionario VALUES(tp_funcionario('61888835044', 'João Lucas Alv
                               tp_endereco('69908650', NULL, '89', 'Avenida Getúlio Vargas'),
                               tp_fones(tp_telefone('992665122'), tp_telefone('921571282')), 'Caixa', 2850, (SELECT REF(c) FROM tb_casa c WHERE c.cnpj = '07829772000180'), (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '16790533028')));
 
+INSERT INTO tb_funcionario VALUES(tp_funcionario('16790533028', 'Patricia Ismael de Carvalho', 'F', 54,
+                              tp_endereco('69908650', NULL, '87', 'Avenida Getúlio Vargas'),
+                              tp_fones(tp_telefone('982865122'), tp_telefone('921001282')), 'Supervisor', 4050, (SELECT REF(c) FROM tb_casa c WHERE c.cnpj = '07829772000180'), NULL));
+
 INSERT INTO tb_funcionario VALUES(tp_funcionario('99518963088', 'Bruna Alves W. Siqueira', 'F', 35,
                               tp_endereco('23092490', 'Ap 1202', '90', 'Rua São Bento do Sul'),
                               tp_fones(tp_telefone('912245118'), tp_telefone('995481078')), 'Dealer', 6400, (SELECT REF(c) FROM tb_casa c WHERE c.cnpj = '07829772000180'), (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '16790533028')));
@@ -339,6 +344,10 @@ INSERT INTO tb_funcionario VALUES(tp_funcionario('49869393004', 'Andreia Duboc',
 INSERT INTO tb_funcionario VALUES(tp_funcionario('66559107060', 'Matheus Frej Lemos C.', 'M', 62,
                               tp_endereco('74971460', 'Ap 101', '800', 'Travessa 1'),
                               tp_fones(tp_telefone('992342832'), tp_telefone('995481378'),tp_telefone('991222418')), 'Dealer', 4900, (SELECT REF(c) FROM tb_casa c WHERE c.cnpj = '89619720000143'), (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '49869393004')));
+
+INSERT INTO tb_funcionario VALUES(tp_funcionario('78366263002', 'Alexandre Ottoni', 'M', 45,
+                              tp_endereco('69901255', NULL, '192', 'Estrada Particular'),
+                              tp_fones(tp_telefone('991223344'), tp_telefone('993022418')), 'Caixa', 2300, (SELECT REF(c) FROM tb_casa c WHERE c.cnpj = '89619720000143'), (SELECT REF(f) FROM tb_funcionario f WHERE f.cpf = '49869393004')));
 
 
 -- Inserções da tabela JOGO
@@ -390,6 +399,22 @@ INSERT INTO tb_compra VALUES(tp_compra(
     (SELECT VALUE(FC) FROM tb_casa c, TABLE(c.fichas) FC WHERE FC.cor = 'Verde' AND c.cnpj = '07829772000180'),
     5,
     5000
+));
+
+INSERT INTO tb_compra VALUES(tp_compra(
+    (SELECT REF(F) FROM tb_funcionario F WHERE F.cpf = '99942745033'),
+    (SELECT REF(J) FROM tb_jogador J WHERE J.cpf = '94044687544'),
+    (SELECT VALUE(FC) FROM tb_casa c, TABLE(c.fichas) FC WHERE FC.cor = 'Amarelo' AND c.cnpj = '40658419000150'),
+    7,
+    300
+));
+
+INSERT INTO tb_compra VALUES(tp_compra(
+    (SELECT REF(F) FROM tb_funcionario F WHERE F.cpf = '78366263002'),
+    (SELECT REF(J) FROM tb_jogador J WHERE J.cpf = '94044687544'),
+    (SELECT VALUE(FC) FROM tb_casa c, TABLE(c.fichas) FC WHERE FC.cor = 'Branco' AND c.cnpj = '89619720000143'),
+    8,
+    20000
 ));
 
 

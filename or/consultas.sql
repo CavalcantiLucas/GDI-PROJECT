@@ -33,12 +33,43 @@ WHERE DEREF(J.jogo).nome_jogo = 'Poker';
 SELECT DEREF(C.jogador).nome AS Jogador FROM tb_compra C
 WHERE DEREF(DEREF(C.funcionario).casa).nome = 'The Wild Jack';
 
---Consulta à VARRAY (VARRAY)
+-- Consulta à tabela compra
+-- Retorna o valor da compra e casa onde foi realizada a compra por um Jogador específico
+SELECT C.valor_compra, DEREF(DEREF(C.funcionario).casa).nome AS Casa FROM tb_compra C
+WHERE DEREF(C.jogador).cpf = '94044687544';
+
+-- Consulta à VARRAY (VARRAY)
 -- O nome e o telefone de todos os jogadores em que o telefone deles começa com 99
 SELECT J.nome, T.numero FROM tb_jogador J, TABLE(J.telefones) T WHERE T.numero LIKE ('99%');
 /
 
--- Constula à NESTED TABLE (NESTED TABLE)
+-- Consulta à NESTED TABLE (NESTED TABLE)
 -- Todas as fichas do cassino EL FREJO
 SELECT * FROM TABLE (SELECT C.fichas FROM tb_casa C WHERE C.cnpj = '40658419000150');
 /
+
+-- Consulta à NESTED TABLE Fichas
+-- Cores das fichas que custam 100 em cada uma das casas
+SELECT C.nome, F.cor FROM tb_casa C, TABLE (C.fichas) F WHERE F.valor = 100;
+
+-- Consulta à tabela de funcionarios
+-- Retornar a quantidade de supervisores que são mulheres
+SELECT COUNT (*) AS QTD_MULHERES_SUPERVISORAS FROM tb_funcionario C WHERE DEREF(C.supervisor).sexo = 'F';
+/
+
+-- Consulta à tabela de jogos
+-- Retornar a média de custo dos jogos
+SELECT AVG(custo_jogo) AS custo_medio FROM tb_jogo C;
+/
+
+-- Consulta à tabela jogo_casa
+-- Consultar um jogo específico e saber quais casas oferecem aquele jogo
+SELECT DEREF(J.jogo).nome_jogo AS nome_jogo, DEREF(J.casa).nome AS nome_casa
+FROM tb_jogo_casa J 
+WHERE DEREF(J.jogo).id = '3'
+/
+
+-- Consulta à tabela tb_funcionario
+-- Retorna nome, salario e casa do funcionário mais bem pago entre os cassinos
+SELECT F.nome, F.salario, DEREF(F.casa).nome AS casa FROM tb_funcionario F
+WHERE F.salario = (SELECT MAX(F2.salario) FROM tb_funcionario F2)
